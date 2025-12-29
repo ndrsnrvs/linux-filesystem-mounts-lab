@@ -68,6 +68,7 @@ Using the `mount` utilty, `mount /dev/sdb1 /secondstorage` our filesystem is now
 # Process - Visual
 
 I wanted to create a visual using Obsidian's canvas feature that captures the jist of what I've done here in this lab.  I like how it assigns purpose and frame to the `lsblk` and `findmnt` commands and where one would use it along in this process, whether to gain insight from a block device's point-of-view or from the mounted directory's point-of-view.
+
 ![](https://github.com/ndrsnrvs/linux-filesystem-mounts-lab/blob/main/src/Process%20-%20Visual.png)
 
 # Next Steps...
