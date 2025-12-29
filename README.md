@@ -33,8 +33,38 @@ the `dev/sdb1` entry which signifies the newly created partition.
 
 The next step is to assign a filesystem to the partition.
 
-## Create Filesystem
+## Assign Filesystem
+### Before
 
-## Mount filesystem to Directory
+![Figure 3: Before Assigning Filesystem](https://github.com/ndrsnrvs/linux-filesystem-mounts-lab/blob/main/src/Before%20Assigning%20Filesystem%20to%20Partition.png)
+
+To demonstrate that the filesystem at the partition hasn't been assigned yet, one way to show that is to use `lsblk` utility to see what source filesystems are assigned to which partitions. Note that my `/dev/sdb1` partition has no entry metadata because I haven't assigned the filesystem type to it just yet.
+
+Another way to check, if I were to use the `mount` utility, the util would error out and say that there isn't a filesystem at the `/dev/sdb1` location. 
+
+### After
+Using `mkfs -t ext4 /dev/sdb1` to assign the filesystem type ext4 to `/dev/sdb1` now gives the root `/` directory the ability to map it along its tree. 
+
+![Figure 4: After Assigning Filesystem to Partition](https://github.com/ndrsnrvs/linux-filesystem-mounts-lab/blob/main/src/After%20Assigning%20Filesystem%20to%20Partition.png)
+
+Notice now in `lsblk` we're able to see the filesystem metadata assigned to `/dev/sdb1`, and the filesystem has yet to be mounted to a directory.
+
+## Mount Filesystem to Directory
+
+### Before
+
+So I've assigned a filesystem to a partition, but can Linux recognize all the work done up until this point? The answer is NO!  The filesystem is not mounted to any directory along the root (`/`) directory.
+
+![Figure 5: Before Mounting Filesystem to Directory](https://github.com/ndrsnrvs/linux-filesystem-mounts-lab/blob/main/src/Before%20Mounting%20Filesystem%20to%20Directory.png)
+
+To prove this notice when using `findmnt` utility there isn't a `dev/sdb1` filesystem entry along the root (`/`) because no directory has been given access to this new filesystem space. Also in the previous figure, after assigning the filesystem, the `lsblk` output shows sdb1 isn't mounted anywhere so it makes sense that the root directory tree isn't able to see this new filesystem.
+
+### After
+
+![Figure 6: After Mounting Filesystem to Directory](https://github.com/ndrsnrvs/linux-filesystem-mounts-lab/blob/main/src/After%20Mounting%20Filesystem%20to%20Directory.png)
+
+Using the `mount` utilty, `mount /dev/sdb1 /secondstorage` our filesystem is now mounted at a directory and Linux is now able to see its relationship relative to the root (`/`) directory.
 
 # Process - Visual
+
+
